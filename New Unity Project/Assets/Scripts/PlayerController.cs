@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.PlayerLoop;
 
 public class PlayerController : MonoBehaviour
 {
+    public int coin = 0;
+    public TMP_Text coinText;
     public float moveSpeed;
     public float maxVelocity;
     public float jumpForce;
@@ -131,5 +134,15 @@ public class PlayerController : MonoBehaviour
     {
         move();
         LimiteVelocity();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            coin++;
+            coinText.text = coin.ToString();
+            Destroy(other.gameObject);
+        }
     }
 }
